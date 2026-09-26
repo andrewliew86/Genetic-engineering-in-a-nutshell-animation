@@ -12,7 +12,7 @@ npm ci
 npm run video
 ```
 
-The silent H.264 MP4 is written to `out/video.mp4` at 24 fps. Use `node render.mjs --chrome="/path/to/browser" --clip --out=out/video.mp4` for a browser in a nonstandard location. On machines without a working GPU, add `--soft-gl`.
+The silent H.264 MP4 is written to `out/video.mp4` at 24 fps, with 12 painted drawings per second held for two frames (traditional animation “on twos”). Use `node render.mjs --chrome="/path/to/browser" --clip --on-twos --out=out/video.mp4` for a browser in a nonstandard location. Omit `--on-twos` to paint every frame. On machines without a working GPU, add `--soft-gl`.
 
 Open `studio.html` in a supported browser after installing dependencies to scrub or play the live painting preview. Real-time preview speed depends on the device; offline rendering preserves exact video timing.
 

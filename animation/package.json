@@ -5,7 +5,7 @@
   "description": "A silent one-minute hand-painted cartoon about genetic engineering, using the MIT-licensed ClaudeAnimationBase engine",
   "scripts": {
     "sheet": "node render.mjs --sheet=1,7,10,17,20,26,29,37,40,47,50,57 --cols=3 --out=out/sheet.jpg",
-    "video": "node render.mjs --clip --out=out/video.mp4"
+    "video": "node render.mjs --clip --on-twos --out=out/video.mp4"
   },
   "dependencies": {
     "p5": "^2.3.3",

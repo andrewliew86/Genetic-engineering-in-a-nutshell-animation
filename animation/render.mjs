@@ -142,15 +142,19 @@ if (args.sheet || args.strip) {
   const out = args.out || 'out/clip.mp4'; mkdirSync(dirname(out), { recursive: true });
   const ff = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(fps), '-c:v', 'mjpeg', '-i', '-',
     ...(audio ? ['-ss', String(a), '-t', String(b - a), '-i', audio, '-map', '0:v', '-map', '1:a', '-c:a', 'aac', '-b:a', '192k', '-shortest'] : []),
-    '-c:v', 'libx264', '-preset', 'medium', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out],
+    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out],
     { stdio: ['pipe', 'inherit', 'inherit'] });
   const n = Math.round((b - a) * fps), start = Date.now();
+  let previousTime = -1, previousBuffer;
   for (let i = 0; i < n; i++) {
-    const buf = await frameOf(page, a + i / fps, 'image/jpeg', .93);
+    const rawTime = a + i / fps;
+    const time = args['on-twos'] ? Math.floor(rawTime * 12 + 1e-6) / 12 : rawTime;
+    const buf = time === previousTime ? previousBuffer : await frameOf(page, time, 'image/jpeg', .93);
+    previousTime = time; previousBuffer = buf;
     if (!ff.stdin.write(buf)) await new Promise(r => ff.stdin.once('drain', r));
     if (i % 24 === 0 || i === n - 1) console.log(`frame ${i + 1}/${n}  ${((Date.now() - start) / (i + 1)).toFixed(0)} ms/frame`);
   }
-  ff.stdin.end(); await new Promise(r => ff.on('close', r));
+  ff.stdin.end(); await new Promise((resolve, reject) => ff.on('close', code => code === 0 ? resolve() : reject(new Error('ffmpeg exited ' + code))));
   console.log(`wrote ${out}`);
 } else {
   console.log('nothing to do: see the usage notes at the top of render.mjs');
