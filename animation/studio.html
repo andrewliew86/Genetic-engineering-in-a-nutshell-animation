@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Life, rewritten — one minute cartoon</title>
+<style>body{margin:0;background:#292936;color:#f4efdf;font:16px system-ui}main{max-width:1280px;margin:auto;padding:20px}h1{font-size:20px;font-weight:500}#out{width:100%;height:auto;aspect-ratio:16/9}.p5Canvas{display:none!important}.bar{display:flex;gap:16px;align-items:center;margin-top:16px}#scrub{flex:1}button{font:inherit;padding:8px 16px;cursor:pointer}#tt{min-width:110px}p{font-size:14px;color:#c9c9ce}</style>
+<script src="node_modules/p5/lib/p5.min.js"></script><script src="node_modules/p5.brush/dist/p5.brush.js"></script></head>
+<body><main><h1>Life, rewritten · a one-minute cartoon</h1><canvas id="out" width="1920" height="1080" aria-label="Animated history of genetic engineering"></canvas><div class="bar"><button id="play">Play</button><input id="scrub" aria-label="Video time" type="range" min="0" max="60" step="0.0416667" value="0"><span id="tt">Loading…</span></div><p>Silent preview. The exported MP4 plays at a smooth 24 fps; this live painting preview depends on your device.</p></main>
+<script src="src/config.js"></script><script src="src/core.js"></script><script src="src/timeline.js"></script><script src="src/microbes.js"></script><script src="src/story.js"></script>
+</body></html>

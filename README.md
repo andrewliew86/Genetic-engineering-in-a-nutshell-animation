@@ -1,5 +1,7 @@
 # Life, rewritten
 
+**New on this branch:** [a one-minute, silent hand-painted cartoon](animation/README.md), made in JavaScript with p5.js and p5.brush. See its storyboard and rendering instructions in `animation/`.
+
 A general-audience, interactive 3D history of genetic engineering: from an ancient bacterial arms race to recombinant human insulin.
 
 **[Explore the website](https://andrewliew86.github.io/Genetic-engineering-in-a-nutshell-animation/)**
