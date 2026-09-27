@@ -32,3 +32,16 @@ No voice, music, hosted service, API key or generated-image assets are needed. T
 The hand-painted approach follows John Heibel's [animation guide](https://github.com/JohnHeibel/ClaudeAnimationBase/blob/main/ANIMATION_GUIDE.md), with [PDoomVideo](https://github.com/JohnHeibel/PDoomVideo) as the user's style reference. Explanatory text is included intentionally, as requested.
 
 `src/core.js`, `src/timeline.js` and `render.mjs` are adapted from **ClaudeAnimationBase**, copyright © 2026 John Heibel, under the MIT license reproduced in `ENGINE-LICENSE`. The engine uses p5.js and p5.brush. Changes include caption fonts without a network dependency, playback controls, Edge discovery and the custom microbe story. Character designs and scene code were created for this project with OpenAI Codex. Scientific sources are listed in the repository's main README.
+
+## Narration and music edition
+
+The narrated edition adds Microsoft Jenny Neural synthetic speech, with a conversational script aligned to all six scenes, and an original 80 BPM score of soft pads and celesta-like notes. Music gently ducks under the narration. The source animation and captions are unchanged.
+
+To add audio to an existing silent render:
+
+```sh
+python -m pip install edge-tts==7.2.8 numpy
+python audio.py --video out/video.mp4 --output out/video-narrated.mp4
+```
+
+Narration generation uses the online Microsoft Edge speech service through [edge-tts](https://github.com/rany2/edge-tts); internet access is required on the first run. The script caches generated speech in `out/audio`, trims leading/trailing silence, aligns each segment, and uses only small pitch-preserving timing adjustments. Edit `narration.json` to change the words. The music is synthesized locally from an original note arrangement; no stock recording is used. FFmpeg mixes the audio to a -16 LUFS target and copies the existing video without re-encoding it. `out/audio` also contains separate narration, music, mix, and timing files. The narration is AI-generated, not a recording of a human actor.
